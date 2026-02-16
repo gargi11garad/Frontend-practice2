@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frontend Mentor | Article preview component</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background: hsl(210, 46%, 95%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .card {
+      display: flex;
+      max-width: 800px;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .card img:first-child {
+      width: 40%;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 40px;
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    h3 {
+      color: hsl(217, 19%, 35%);
+      margin-bottom: 15px;
+      font-size: 20px;
+      line-height: 1.4;
+    }
+
+    p {
+      color: hsl(212, 23%, 69%);
+      margin-bottom: 20px;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .author {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      margin-top: 10px;
+    }
+
+    .author-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .author-text {
+      font-size: 13px;
+    }
+
+    .author-text strong {
+      display: block;
+      color: hsl(217, 19%, 35%);
+    }
+
+    .author-text span {
+      color: hsl(212, 23%, 69%);
+    }
+
+    .share-btn {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      background-color: hsl(210, 46%, 95%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+      transition: background-color 0.3s;
+    }
+
+    .share-btn:hover {
+      background-color: hsl(212, 23%, 69%);
+    }
+
+    .share-btn.active {
+      background-color: hsl(217, 19%, 35%);
+    }
+    
+    .share-btn.active img {
+      filter: brightness(0) invert(1);
+    }
+
+    /* Tooltip Styles */
+    .share-tooltip {
+      display: none;
+      position: absolute;
+      background-color: hsl(217, 19%, 35%);
+      color: white;
+      padding: 15px 30px;
+      border-radius: 10px;
+      gap: 15px;
+      align-items: center;
+      top: -60px;
+      right: -100px;
+      letter-spacing: 5px;
+      font-size: 13px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+
+    .share-tooltip::after {
+      content: '';
+      position: absolute;
+      border-width: 10px;
+      border-style: solid;
+      border-color: hsl(217, 19%, 35%) transparent transparent transparent;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .share-tooltip.active {
+      display: flex;
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        flex-direction: column;
+        max-width: 400px;
+      }
+
+      .card img:first-child {
+        width: 100%;
+        height: 200px;
+      }
+
+      .card-content {
+        width: 100%;
+        padding: 30px;
+      }
+
+      .share-tooltip {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0 0 12px 12px;
+        margin: 0;
+        padding: 0 30px;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 20px;
+        z-index: 1;
+      }
+      
+      .share-tooltip::after {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <img src="images/drawers.jpg" alt="Furniture drawers">
+    
+    <div class="card-content">
+      <h3>Shift the overall look and feel by adding these wonderful touches to furniture in your home</h3>
+      
+      <p>Ever been in a room and felt like something was missing? Perhaps it felt slightly bare and uninviting. I’ve got some simple tips to help you make any room feel complete.</p>
+
+      <div class="author">
+        <div class="author-info">
+          <img src="images/avatar-michelle.jpg" alt="Michelle Appleton" class="avatar">
+          <div class="author-text">
+            <strong>Michelle Appleton</strong>
+            <span>28 Jun 2020</span>
+          </div>
+        </div>
+
+        <button class="share-btn" id="shareBtn">
+          <img src="images/icon-share.svg" alt="Share icon">
+        </button>
+
+        <div class="share-tooltip" id="shareTooltip">
+          <span>SHARE</span>
+          <img src="images/icon-facebook.svg" alt="Facebook">
+          <img src="images/icon-twitter.svg" alt="Twitter">
+          <img src="images/icon-pinterest.svg" alt="Pinterest">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const shareBtn = document.getElementById('shareBtn');
+    const shareTooltip = document.getElementById('shareTooltip');
+
+    shareBtn.addEventListener('click', () => {
+      shareTooltip.classList.toggle('active');
+      shareBtn.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>
